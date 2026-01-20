@@ -1,0 +1,29 @@
+{% extends 'mailing_app/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h2>Форма для рассылки</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'library:books_list' %}" class="btn btn-primary">Отменить</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Автоматическое скрытие сообщений через 5 секунд
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            var bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+});
+</script>
+{% endblock %}

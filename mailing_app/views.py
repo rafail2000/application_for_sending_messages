@@ -1,54 +1,54 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
-from mailing_app.models import Message
+from mailing_app.models import Message, Mailing
 
 
-class MessageCreateView(CreateView):
+class MailingCreateView(CreateView):
     """
-    Курсор для создания сообщений
-    """
-
-    model = Message
-    template_name = 'mailing_app/message_form.html'
-    success_url = reverse_lazy('mailing_app/message_list.html')
-
-
-class MessageListView(ListView):
-    """
-    Курсор для просмотра списка сообщений
+    Курсор для создания рассылки
     """
 
-    model = Message
-    template_name = 'mailing_app/messages_list.html'
-    context_object_name = 'messages'
+    model = Mailing
+    template_name = 'mailing_app/mailing_form.html'
+    success_url = reverse_lazy('mailing_app/mailing_form.html')
 
 
-class MessageDetailView(DetailView):
+class MailingListView(ListView):
     """
-    Курсор для просмотра сообщения
-    """
-
-    model = Message
-    template_name = 'mailing_app/message_detail.html'
-    context_object_name = 'message'
-
-
-class MessageUpdateView(UpdateView):
-    """
-    Курсор для обновления сообщения
+    Курсор для просмотра списка рассылок
     """
 
-    model = Message
-    template_name = 'mailing_app/message_forml.html'
-    success_url = reverse_lazy('mailing_app/message_list.html')
+    model = Mailing
+    template_name = 'mailing_app/mailings_list.html'
+    context_object_name = 'mailings'
 
 
-class MessageDeleteView(DetailView):
+class MailingDetailView(DetailView):
     """
-    Курсор для удаления сообщения
+    Курсор для просмотра рассылки
     """
 
-    model = Message
-    template_name = 'mailing_app/message_confirm_delete.html'
+    model = Mailing
+    template_name = 'mailing_app/mailing_item.html'
+    context_object_name = 'mailing'
+
+
+class MailingUpdateView(UpdateView):
+    """
+    Курсор для редактирования рассылки
+    """
+
+    model = Mailing
+    template_name = 'mailing_app/mailing_forml.html'
+    success_url = reverse_lazy('mailing_app/mailing_list.html')
+
+
+class MailingDeleteView(DetailView):
+    """
+    Курсор для удаления рассылки
+    """
+
+    model = Mailing
+    template_name = 'mailing_app/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing_app/message_list.html')
