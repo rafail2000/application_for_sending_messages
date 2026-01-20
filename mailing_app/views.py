@@ -20,8 +20,8 @@ class MessageListView(ListView):
     """
 
     model = Message
-    template_name = 'mailing_app/message_list.html'
-    context_object_name = 'message'
+    template_name = 'mailing_app/messages_list.html'
+    context_object_name = 'messages'
 
 
 class MessageDetailView(DetailView):
