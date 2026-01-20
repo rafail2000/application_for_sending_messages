@@ -1,6 +1,6 @@
 from django.forms import BooleanField, ModelForm
 
-from mailing_app.models import Message
+from mailing_app.models import Mailing
 
 
 class StyleFormMixin:
@@ -17,11 +17,11 @@ class StyleFormMixin:
                 fild.widget.attrs['class'] = "form-control"
 
 
-class MessageForm(StyleFormMixin, ModelForm):
+class MailingForm(StyleFormMixin, ModelForm):
     """
     Класс формы
     """
 
     class Meta:
-        model = Message
+        model = Mailing
         fields = '__all__'

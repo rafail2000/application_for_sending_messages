@@ -106,4 +106,4 @@ class MailingAttempts(models.Model):
     )
     status = models.CharField(max_length=20, verbose_name="статус", help_text="введите статус")
     server_response = models.TextField(verbose_name="Ответ сервера", help_text="Введите ответ сервера")
-    mailing = message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    mailing = models.ForeignKey(Message, on_delete=models.CASCADE)
