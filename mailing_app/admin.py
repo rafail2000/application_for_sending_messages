@@ -7,7 +7,7 @@ from mailing_app.models import MailingRecipient, Message, Mailing, MailingAttemp
 class MailingRecipientAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'initials', 'comment',)
     list_filter = ('initials',)
-    search_fields = ('name', 'description',)
+    search_fields = ('email', 'initials',)
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
