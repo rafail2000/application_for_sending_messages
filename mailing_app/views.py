@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .services import send_mail_recipients
 
 from mailing_app.forms import MailingForm
-from mailing_app.models import Mailing
+from mailing_app.models import Mailing, MailingRecipient
 
 
 class MailingCreateView(CreateView):
@@ -31,8 +32,32 @@ class MailingListView(ListView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        obj.update_status()  # ← пересчёт и сохранение статуса
+        obj.update_status()
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        now = timezone.now()
+
+        total_mailings = Mailing.objects.count()
+
+        active_mailings = Mailing.objects.filter(
+            start_time__lte=now,
+            end_time__gte=now,
+            status='Запущена'
+        ).count()
+
+        unique_recipients = MailingRecipient.objects.count()
+
+        context.update({
+            'total_mailings': total_mailings,
+            'active_mailings': active_mailings,
+            'unique_recipients': unique_recipients,
+            'now': now,
+        })
+
+        return context
 
 
 class MailingDetailView(DetailView):

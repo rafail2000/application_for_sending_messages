@@ -14,4 +14,48 @@
     </div>
     {% endfor %}
 </div>
+<div class="container mt-5">
+    <div class="row text-center">
+        <h1 class="mb-5">Система управления рассылками</h1>
+    </div>
+
+    <!-- Статистика в карточках -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-header">
+                    <h4><i class="bi bi-envelope"></i> Все рассылки</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="display-1">{{ total_mailings }}</h1>
+                    <p class="card-text">Всего созданных рассылок</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success h-100">
+                <div class="card-header">
+                    <h4><i class="bi bi-play-circle"></i> Активные рассылки</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="display-1">{{ active_mailings }}</h1>
+                    <p class="card-text">Рассылок в работе сейчас</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-info h-100">
+                <div class="card-header">
+                    <h4><i class="bi bi-people"></i> Уникальные получатели</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="display-1">{{ unique_recipients }}</h1>
+                    <p class="card-text">Всего клиентов в системе</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -7,6 +7,7 @@ def send_mail_recipients(mailing_id):
     """
     Отправляет email получателям
     """
+
     try:
         mailing = Mailing.objects.get(id=mailing_id)
 
