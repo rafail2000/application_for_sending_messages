@@ -9,7 +9,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'library:books_list' %}" class="btn btn-primary">Отменить</a>
+    <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Отменить</a>
 </form>
 {% endblock %}
 
