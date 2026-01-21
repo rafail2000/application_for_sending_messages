@@ -67,11 +67,18 @@ class Mailing(models.Model):
 
         validate_errors = {}
 
-        if self.start_time < timezone.now():
-            validate_errors["start_time"] = "Время начала не может быть в прошлом"
+        if self.start_time is not None:
+            if self.start_time < timezone.now():
+                validate_errors["start_time"] = "Время начала не может быть в прошлом"
+        else:
+            validate_errors["start_time"] = "Укажите время начало"
 
-        if self.start_time < self.end_time:
-            validate_errors["end_time"] = "Время отправки не может раньше даты создания"
+        if self.start_time is not None and self.end_time is not None:
+            if self.start_time > self.end_time:
+                validate_errors["end_time"] = "Время окончания не может быть раньше времени начала"
+
+        if self.end_time is None:
+            validate_errors["end_time"] = "Укажите время окончания"
 
         if validate_errors:
             raise ValidationError(validate_errors)

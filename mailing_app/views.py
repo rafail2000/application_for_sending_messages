@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from mailing_app.forms import MailingForm
 from mailing_app.models import Mailing
@@ -13,7 +13,7 @@ class MailingCreateView(CreateView):
     model = Mailing
     form_class = MailingForm
     template_name = 'mailing_app/mailing_form.html'
-    success_url = reverse_lazy('mailing_app:mailing_form.html')
+    success_url = reverse_lazy('mailing_app:mailings_list')
 
 
 class MailingListView(ListView):
@@ -48,15 +48,15 @@ class MailingUpdateView(UpdateView):
 
     model = Mailing
     form_class = MailingForm
-    template_name = 'mailing_app/mailing_forml.html'
-    success_url = reverse_lazy('mailing_app:mailing_list.html')
+    template_name = 'mailing_app/mailing_form.html'
+    success_url = reverse_lazy('mailing_app:mailings_list')
 
 
-class MailingDeleteView(DetailView):
+class MailingDeleteView(DeleteView):
     """
     Курсор для удаления рассылки
     """
 
     model = Mailing
     template_name = 'mailing_app/mailing_confirm_delete.html'
-    success_url = reverse_lazy('mailing_app/message_list.html')
+    success_url = reverse_lazy('mailing_app:mailings_list')

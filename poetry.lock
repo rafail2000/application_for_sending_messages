@@ -116,6 +116,20 @@ argon2 = ["argon2-cffi (>=23.1.0)"]
 bcrypt = ["bcrypt (>=4.1.1)"]
 
 [[package]]
+name = "dotenv"
+version = "0.9.9"
+description = "Deprecated package"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "dotenv-0.9.9-py2.py3-none-any.whl", hash = "sha256:29cf74a087b31dafdb5a446b6d7e11cbce8ed2741540e2339c69fbef92c94ce9"},
+]
+
+[package.dependencies]
+python-dotenv = "*"
+
+[[package]]
 name = "flake8"
 version = "7.3.0"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -234,6 +248,21 @@ files = [
     {file = "librt-0.7.8-cp39-cp39-win_amd64.whl", hash = "sha256:e90a8e237753c83b8e484d478d9a996dc5e39fd5bd4c6ce32563bc8123f132be"},
     {file = "librt-0.7.8.tar.gz", hash = "sha256:1a4ede613941d9c3470b0368be851df6bb78ab218635512d0370b27a277a0862"},
 ]
+
+[[package]]
+name = "load-dotenv"
+version = "0.1.0"
+description = "Automatically and implicitly load environment variables from .env file"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "load-dotenv-0.1.0.tar.gz", hash = "sha256:bbe5f40072d4a61eadca66de6c222df5a2d935d6d41b703be1ff75396f635145"},
+    {file = "load_dotenv-0.1.0-py3-none-any.whl", hash = "sha256:614803f720153fb8a5f97124a72aaa3930a67aa5547cbe8603d01ea7f9ac1adf"},
+]
+
+[package.dependencies]
+python-dotenv = "*"
 
 [[package]]
 name = "mccabe"
@@ -578,6 +607,21 @@ files = [
 ]
 
 [[package]]
+name = "python-dotenv"
+version = "1.2.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61"},
+    {file = "python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "pytokens"
 version = "0.4.0"
 description = "A Fast, spec compliant Python 3.14+ tokenizer that runs on older Pythons."
@@ -676,4 +720,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "0f0140f9f5ef499918ad31f132d1900697cf39e19185fec1bef97a9c9487edea"
+content-hash = "e71cb0fb191cdfe0ac6f049b80c5d56c9f294dd66109f7bc5f1295ba6a1c8137"

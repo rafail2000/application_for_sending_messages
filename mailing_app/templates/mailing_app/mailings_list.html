@@ -1,10 +1,10 @@
 {% extends 'mailing_app/base.html' %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+<div class="text-center">
     {% for mailing in mailings %}
         <li class="list-group-item">
-            <a href="{% url 'mailing_app:mailing_form' mailing.pk %}">{{ mailing.message }}</a> - Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time }}] [----Будущее----]
+            <a href="{% url 'mailing_app:mailing_item' mailing.pk %}">{{ mailing.message }}</a> - Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time }}] [----Будущее----]
         </li>
     {% empty %}
     <div class="col-12">
