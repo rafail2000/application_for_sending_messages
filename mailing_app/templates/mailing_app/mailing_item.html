@@ -2,14 +2,22 @@
 
 {% block content %}
 <div class="container">
-   <div class="col">
-      <div class="card mb-4 rounded-3 shadow-sm">
-         <div class="card-header py-3">
-          Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time }}] [----Будущее----]
-            <a href="{% url 'mailing_app:mailing_form' mailing.pk %}" class="btn btn-secondary">Редактировать</a>
-            <a href="{% url 'mailing_app:mailing_delete' mailing.pk %}" class="btn btn-danger">Удалить</a>
-            <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Вернуться к списку</a>
-      </div>
-   </div>
+    <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time
+                }}] [----Будущее----]
+                <a href="{% url 'mailing_app:mailing_form' mailing.pk %}" class="btn btn-secondary">Редактировать</a>
+                <a href="{% url 'mailing_app:mailing_delete' mailing.pk %}" class="btn btn-danger">Удалить</a>
+                <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Вернуться к списку</a>
+            </div>
+            {% if mailing.status != "Запущена" %}
+            <form method="post" action="{% url 'mailing_app:start_mailing' mailing.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Запустить рассылку</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
