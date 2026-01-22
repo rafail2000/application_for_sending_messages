@@ -86,9 +86,11 @@ class MailingDeleteView(DeleteView):
     Курсор для удаления рассылки
     """
 
+    permission_required = ['catalog.delete_product']
     model = Mailing
     template_name = 'mailing_app/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing_app:mailings_list')
+
 
 @require_POST
 def start_mailing(request, pk):

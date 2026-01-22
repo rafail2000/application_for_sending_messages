@@ -7,7 +7,7 @@ app_name = UsersConfig.name
 
 urlpatterns = [
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', LogoutView.as_view(next_page=reverse_lazy('catalog:products_list')), name='logout'),
+    path('logout/', LogoutView.as_view(next_page=reverse_lazy('mailing_app:mailings_list')), name='logout'),
     path('register/', UserCreateView.as_view(template_name='users/user_form.html'), name='register'),
     path('<int:pk>/edit/', UserUpdateView.as_view(), name='user_edit'),
 ]

@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
+from users.models import User
+
 
 class MailingRecipient(models.Model):
     """
@@ -17,6 +19,9 @@ class MailingRecipient(models.Model):
     class Meta:
         verbose_name = "Получатель"
         verbose_name_plural = "Получатели"
+        permissions = [
+            ('can_unpublish_product', 'Can unpublished product'),
+        ]
 
     def __str__(self):
         return self.initials
@@ -52,10 +57,26 @@ class Mailing(models.Model):
     status = models.CharField(max_length=20, default="Создана", verbose_name="Статус рассылки")
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     recipients = models.ManyToManyField(MailingRecipient)
+    owner = models.ForeignKey(
+        User,
+        verbose_name='Владелец',
+        help_text='Укажите имя владельца',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL)
+
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name='Опубликовано'
+    )
+
 
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
+        permissions = [
+            ('can_unpublish_product', 'Can unpublished product'),
+        ]
 
     def __str__(self):
         return self.status

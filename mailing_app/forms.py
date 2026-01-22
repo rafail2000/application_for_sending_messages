@@ -25,3 +25,14 @@ class MailingForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Mailing
         fields = '__all__'
+        exclude = ('is_published',)
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    """
+    Класс формы для модератора
+    """
+
+    class Meta:
+        model = Mailing
+        fields = '__all__'
