@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -6,7 +7,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .services import send_mail_recipients
 
-from mailing_app.forms import MailingForm
+from mailing_app.forms import MailingForm, MailingManagerForm
 from mailing_app.models import Mailing, MailingRecipient
 
 
@@ -79,6 +80,14 @@ class MailingUpdateView(UpdateView):
     form_class = MailingForm
     template_name = 'mailing_app/mailing_form.html'
     success_url = reverse_lazy('mailing_app:mailings_list')
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return MailingForm
+        if user.has_perm('mailing_app.can_unpublish_product'):
+            return MailingManagerForm
+        raise PermissionDenied
 
 
 class MailingDeleteView(DeleteView):

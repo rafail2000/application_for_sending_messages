@@ -7,9 +7,15 @@
             <div class="card-header py-3">
                 Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time
                 }}] [----Будущее----]
-                <a href="{% url 'mailing_app:mailing_form' mailing.pk %}" class="btn btn-secondary">Редактировать</a>
-                <a href="{% url 'mailing_app:mailing_delete' mailing.pk %}" class="btn btn-danger">Удалить</a>
-                <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Вернуться к списку</a>
+                {% if user == mailing.owner %}
+                    <a href="{% url 'mailing_app:mailing_form' mailing.pk %}" class="btn btn-secondary">Редактировать</a>
+                    <a href="{% url 'mailing_app:mailing_delete' mailing.pk %}" class="btn btn-danger">Удалить</a>
+                    <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Вернуться к списку</a>
+                {% endif %}
+                {% if perms.mailing_app.can_unpublish_product %}
+                    <a href="{% url 'mailing_app:mailing_form' mailing.pk %}" class="btn btn-secondary">Редактировать</a>
+                    <a href="{% url 'mailing_app:mailings_list' %}" class="btn btn-primary">Вернуться к списку</a>
+                {% endif %}
             </div>
             {% if mailing.status != "Запущена" %}
             <form method="post" action="{% url 'mailing_app:start_mailing' mailing.pk %}">

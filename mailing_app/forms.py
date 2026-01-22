@@ -28,7 +28,7 @@ class MailingForm(StyleFormMixin, ModelForm):
         exclude = ('is_published',)
 
 
-class ProductModeratorForm(StyleFormMixin, ModelForm):
+class MailingManagerForm(StyleFormMixin, ModelForm):
     """
     Класс формы для модератора
     """

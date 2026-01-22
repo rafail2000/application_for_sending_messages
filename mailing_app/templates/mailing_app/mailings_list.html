@@ -3,9 +3,11 @@
 {% block content %}
 <div class="text-center">
     {% for mailing in mailings %}
-        <li class="list-group-item">
-            <a href="{% url 'mailing_app:mailing_item' mailing.pk %}">{{ mailing.message }}</a> - Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time }}] [----Будущее----]
-        </li>
+    {% if user == mailing.owner or perms.mailing_app.can_unpublish_product %}
+            <li class="list-group-item">
+                <a href="{% url 'mailing_app:mailing_item' mailing.pk %}">{{ mailing.message }}</a> - Время: [----Прошлое----] [{{ mailing.start_time }}]====={{ mailing.status }}=====[{{ mailing.end_time }}] [----Будущее----]
+            </li>
+    {% endif %}
     {% empty %}
     <div class="col-12">
         <div class="alert alert-info text-center">
