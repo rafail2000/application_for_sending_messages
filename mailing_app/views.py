@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .services import send_mail_recipients
+from .services import send_mail_recipients, get_products_from_cache
 
 from mailing_app.forms import MailingForm, MailingManagerForm
 from mailing_app.models import Mailing, MailingRecipient
@@ -30,6 +30,9 @@ class MailingListView(ListView):
     model = Mailing
     template_name = 'mailing_app/mailings_list.html'
     context_object_name = 'mailings'
+
+    def get_queryset(self):
+        return get_products_from_cache().filter()
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)

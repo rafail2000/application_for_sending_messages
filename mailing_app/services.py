@@ -1,5 +1,8 @@
+from django.core.cache import cache
 from django.core.mail import send_mail
 from django.utils import timezone
+
+from config.settings import CACHE_ENABLED
 from mailing_app.models import Mailing, MailingAttempts
 
 
@@ -65,3 +68,18 @@ def send_mail_recipients(mailing_id):
     except Exception as e:
         print(f"Ошибка при отправке рассылки: {str(e)}")
         return None
+
+def get_products_from_cache():
+    """
+    Получает данные по продуктам из кеша, если кэш пуст, то получает данные из бд.
+    """
+
+    if not CACHE_ENABLED:
+        return Mailing.objects.all()
+    key = 'products_list'
+    products = cache.get(key)
+    if products is not None:
+        return products
+    products = Mailing.objects.all()
+    cache.set(key, products)
+    return products
