@@ -4,7 +4,8 @@ from django.views.decorators.cache import cache_page
 from mailing_app.apps import MailingAppConfig
 from mailing_app.views import MailingListView, MailingDetailView, MailingCreateView, MailingUpdateView, \
     MailingDeleteView, start_mailing, MailingRecipientCreateView, MailingRecipientListView, MailingRecipientUpdateView, \
-    MailingRecipientDetailView, MailingRecipientDeleteView
+    MailingRecipientDetailView, MailingRecipientDeleteView, MessageListView, MessageDetailView, MessageCreateView, \
+    MessageUpdateView, MessageDeleteView
 
 app_name = MailingAppConfig.name
 
@@ -15,6 +16,13 @@ urlpatterns = [
     path('recipients/new/', MailingRecipientCreateView.as_view(), name='recipient_create'),
     path('recipients<int:pk>/edit/', MailingRecipientUpdateView.as_view(), name='recipient_form'),
     path('recipients<int:pk>/delete/', MailingRecipientDeleteView.as_view(), name='recipient_delete'),
+
+    # сообщение
+    path('messages', MessageListView.as_view(), name='messages_list'),
+    path('messages/<int:pk>/', cache_page(60 * 15)(MessageDetailView.as_view()), name='message_item'),
+    path('messages/new/', MessageCreateView.as_view(), name='message_create'),
+    path('messages<int:pk>/edit/', MessageUpdateView.as_view(), name='message_form'),
+    path('messages<int:pk>/delete/', MessageDeleteView.as_view(), name='message_delete'),
 
     # Рассылки
     path('', MailingListView.as_view(), name='mailings_list'),

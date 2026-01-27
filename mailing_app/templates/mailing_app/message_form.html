@@ -4,12 +4,12 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h2>Форма для клиента</h2>
+<h2>Форма для сообщения</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'mailing_app:recipients_list' %}" class="btn btn-primary">Отменить</a>
+    <a href="{% url 'mailing_app:messages_list' %}" class="btn btn-primary">Отменить</a>
 </form>
 {% endblock %}
 

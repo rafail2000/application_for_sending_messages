@@ -1,0 +1,20 @@
+{% extends 'mailing_app/base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <a href="{% url 'mailing_app:message_create' %}">Создать сообщение</a>
+    {% for message in messages %}
+    {% if user.is_authenticated %}
+        <li class="list-group-item">
+            <a href="{% url 'mailing_app:message_item' message.pk %}">{{ message.letter_subject }}, {{ message.letter_body }}</a>
+        </li>
+    {% endif %}
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            сообщений пока нет
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

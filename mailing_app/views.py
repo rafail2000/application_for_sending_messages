@@ -1,14 +1,15 @@
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .services import send_mail_recipients, get_products_from_cache, get_recipients_from_cache
+from .services import send_mail_recipients, get_products_from_cache, get_recipients_from_cache, get_messages_from_cache
 
-from mailing_app.forms import MailingForm, MailingManagerForm, MailingRecipientForm
-from mailing_app.models import Mailing, MailingRecipient
+from mailing_app.forms import MailingForm, MailingManagerForm, MailingRecipientForm, MessageForm
+from mailing_app.models import Mailing, MailingRecipient, Message
 
 
 # Курсоры получателя рассылок
@@ -65,6 +66,62 @@ class MailingRecipientDeleteView(DeleteView):
     model = MailingRecipient
     template_name = 'mailing_app/recipient_confirm_delete.html'
     success_url = reverse_lazy('mailing_app:recipients_list')
+
+
+# Курсоры сообщения
+class MessageCreateView(CreateView):
+    """
+    Курсор для создания сообщения
+    """
+
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailing_app/message_form.html'
+    success_url = reverse_lazy('mailing_app:messages_list')
+
+
+class MessageListView(ListView):
+    """
+    Курсор для просмотра списка сообщений
+    """
+
+    model = Message
+    template_name = 'mailing_app/messages_list.html'
+    context_object_name = 'messages'
+
+    def get_queryset(self):
+        return get_messages_from_cache().filter()
+
+
+class MessageDetailView(DetailView):
+    """
+    Курсор для просмотра сообщения
+    """
+
+    model = Message
+    template_name = 'mailing_app/message_item.html'
+    context_object_name = 'message'
+
+
+class MessageUpdateView(UpdateView):
+    """
+    Курсор для редактирования сообщения
+    """
+
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailing_app/message_form.html'
+    success_url = reverse_lazy('mailing_app:messages_list')
+
+
+class MessageDeleteView(DeleteView):
+    """
+    Курсор для удаления сообщения
+    """
+
+    model = Message
+    template_name = 'mailing_app/message_confirm_delete.html'
+    success_url = reverse_lazy('mailing_app:messages_list')
 
 
 # Курсоры рассылок
