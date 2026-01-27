@@ -7,8 +7,13 @@
 
 Для запуска данного приложения нужно выполнить в терминале команды:
 poetry install,
+
 заполнить данные базы данных,
 python manage.py migrate,
+
+Добавить группу менеджер
+"python manage.py loaddata group_fixture.json --format json".
+
 Добавьте пользователей командой Выполните команду "python manage.py loaddata users.json --format json".
 
 Пользователи:
