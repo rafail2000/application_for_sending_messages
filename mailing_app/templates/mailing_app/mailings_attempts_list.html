@@ -1,0 +1,19 @@
+{% extends 'mailing_app/base.html' %}
+
+{% block content %}
+<div class="text-center">
+    {% for mailing_attempt in mailings_attempts %}
+    {% if user.is_authenticated %}
+        <li class="list-group-item">
+            <a>{{ mailing_attempt.status }}, {{ mailing_attempt.server_response }}, {{ mailing_attempt.mailing }}</a>
+        </li>
+    {% endif %}
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            Попыток рассылок пока нет
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

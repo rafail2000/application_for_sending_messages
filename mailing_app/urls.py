@@ -5,7 +5,7 @@ from mailing_app.apps import MailingAppConfig
 from mailing_app.views import MailingListView, MailingDetailView, MailingCreateView, MailingUpdateView, \
     MailingDeleteView, start_mailing, MailingRecipientCreateView, MailingRecipientListView, MailingRecipientUpdateView, \
     MailingRecipientDetailView, MailingRecipientDeleteView, MessageListView, MessageDetailView, MessageCreateView, \
-    MessageUpdateView, MessageDeleteView
+    MessageUpdateView, MessageDeleteView, MailingAttemptListView
 
 app_name = MailingAppConfig.name
 
@@ -31,4 +31,7 @@ urlpatterns = [
     path('<int:pk>/edit/', MailingUpdateView.as_view(), name='mailing_form'),
     path('<int:pk>/delete/', MailingDeleteView.as_view(), name='mailing_delete'),
     path('<int:pk>/start/', start_mailing, name='start_mailing'),
+
+    # Попытки рассылок
+    path('mailing_attempts', MailingAttemptListView.as_view(), name='mailing_attempts_list'),
 ]

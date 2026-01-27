@@ -6,6 +6,7 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing_app:mailing_create' %}">Добавить рассылку</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing_app:recipients_list' %}">Список клиентов</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing_app:messages_list' %}">Список сообщений</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'mailing_app:mailing_attempts_list' %}">Список попыток отправки</a>
         <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
             {% csrf_token %}
             <button type="submit" class="p-2 btn btn-outline-primary">Выйти</button>

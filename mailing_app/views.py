@@ -6,10 +6,11 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .services import send_mail_recipients, get_products_from_cache, get_recipients_from_cache, get_messages_from_cache
+from .services import send_mail_recipients, get_products_from_cache, get_recipients_from_cache, get_messages_from_cache, \
+    get_mailings_attempts_from_cache
 
 from mailing_app.forms import MailingForm, MailingManagerForm, MailingRecipientForm, MessageForm
-from mailing_app.models import Mailing, MailingRecipient, Message
+from mailing_app.models import Mailing, MailingRecipient, Message, MailingAttempts
 
 
 # Курсоры получателя рассылок
@@ -246,3 +247,17 @@ def start_mailing(request, pk):
         mailing.save(update_fields=['status'])
 
     return redirect('mailing_app:mailing_item', pk=pk)
+
+
+# Курсор для попыток рассылок
+class MailingAttemptListView(ListView):
+    """
+    Курсор для просмотра списка попыток рассылок
+    """
+
+    model = MailingAttempts
+    template_name = 'mailing_app/mailings_attempts_list.html'
+    context_object_name = 'mailings_attempts'
+
+    def get_queryset(self):
+        return get_mailings_attempts_from_cache().filter()

@@ -114,3 +114,18 @@ def get_messages_from_cache():
     messages = Message.objects.all()
     cache.set(key, messages)
     return messages
+
+def get_mailings_attempts_from_cache():
+    """
+    Получает данные по попыткам отправки рассылок из кеша, если кэш пуст, то получает данные из бд.
+    """
+
+    if not CACHE_ENABLED:
+        return MailingAttempts.objects.all()
+    key = 'mailings_attempts_list'
+    attempts = cache.get(key)
+    if attempts is not None:
+        return attempts
+    attempts = MailingAttempts.objects.all()
+    cache.set(key, attempts)
+    return attempts
