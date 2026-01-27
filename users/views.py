@@ -7,6 +7,10 @@ from users.models import User
 
 
 class UserCreateView(CreateView):
+    """
+    Курсор для создания пользователя
+    """
+
     model = User
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')

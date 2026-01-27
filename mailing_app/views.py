@@ -5,12 +5,69 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .services import send_mail_recipients, get_products_from_cache
+from .services import send_mail_recipients, get_products_from_cache, get_recipients_from_cache
 
-from mailing_app.forms import MailingForm, MailingManagerForm
+from mailing_app.forms import MailingForm, MailingManagerForm, MailingRecipientForm
 from mailing_app.models import Mailing, MailingRecipient
 
 
+# Курсоры получателя рассылок
+class MailingRecipientCreateView(CreateView):
+    """
+    Курсор для создания получателя рассылок
+    """
+
+    model = MailingRecipient
+    form_class = MailingRecipientForm
+    template_name = 'mailing_app/recipient_form.html'
+    success_url = reverse_lazy('mailing_app:recipients_list')
+
+
+class MailingRecipientListView(ListView):
+    """
+    Курсор для просмотра списка получателя рассылок
+    """
+
+    model = MailingRecipient
+    template_name = 'mailing_app/recipients_list.html'
+    context_object_name = 'recipients'
+
+    def get_queryset(self):
+        return get_recipients_from_cache().filter()
+
+
+class MailingRecipientDetailView(DetailView):
+    """
+    Курсор для просмотра получателя рассылки
+    """
+
+    model = MailingRecipient
+    template_name = 'mailing_app/recipient_item.html'
+    context_object_name = 'recipient'
+
+
+class MailingRecipientUpdateView(UpdateView):
+    """
+    Курсор для редактирования получателя рассылки
+    """
+
+    model = MailingRecipient
+    form_class = MailingRecipientForm
+    template_name = 'mailing_app/recipient_form.html'
+    success_url = reverse_lazy('mailing_app:recipients_list')
+
+
+class MailingRecipientDeleteView(DeleteView):
+    """
+    Курсор для удаления рассылки
+    """
+
+    model = MailingRecipient
+    template_name = 'mailing_app/recipient_confirm_delete.html'
+    success_url = reverse_lazy('mailing_app:recipients_list')
+
+
+# Курсоры рассылок
 class MailingCreateView(CreateView):
     """
     Курсор для создания рассылки

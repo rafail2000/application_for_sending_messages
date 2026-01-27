@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 
 from config.settings import CACHE_ENABLED
-from mailing_app.models import Mailing, MailingAttempts
+from mailing_app.models import Mailing, MailingAttempts, MailingRecipient
 
 
 def send_mail_recipients(mailing_id):
@@ -83,3 +83,18 @@ def get_products_from_cache():
     products = Mailing.objects.all()
     cache.set(key, products)
     return products
+
+def get_recipients_from_cache():
+    """
+    Получает данные по получателям рассылок из кеша, если кэш пуст, то получает данные из бд.
+    """
+
+    if not CACHE_ENABLED:
+        return MailingRecipient.objects.all()
+    key = 'recipients_list'
+    recipients = cache.get(key)
+    if recipients is not None:
+        return recipients
+    recipients = MailingRecipient.objects.all()
+    cache.set(key, recipients)
+    return recipients

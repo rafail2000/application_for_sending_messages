@@ -1,0 +1,20 @@
+{% extends 'mailing_app/base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <a href="{% url 'mailing_app:recipient_create' %}">Создать клиента</a>
+    {% for recipient in recipients %}
+    {% if user.is_authenticated %}
+        <li class="list-group-item">
+            <a href="{% url 'mailing_app:recipient_item' recipient.pk %}">{{ recipient.email }}, {{ recipient.initials }}, {{ recipient.comment }}</a>
+        </li>
+    {% endif %}
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            Пользователей пока нет
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
